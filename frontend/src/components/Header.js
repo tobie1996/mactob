@@ -215,6 +215,15 @@ const Header = () => {
         ref={mobileMenuRef}
         className={`md:hidden fixed inset-0 bg-gradient-to-b from-gray-900 to-gray-800 z-40 transform ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out`}
       >
+        {/* Close Button */}
+        <button
+          onClick={handleCloseMobileMenu}
+          className="absolute top-4 right-4 text-white hover:text-orange-500 transition-colors duration-300 focus:outline-none"
+          aria-label="Fermer le menu"
+        >
+          <X size={28} />
+        </button>
+
         <div className="flex flex-col h-full pt-20 px-6 space-y-6">
           <div className="flex flex-col space-y-4">
             <Link 
