@@ -10,6 +10,7 @@ import Context from './context';
 import { useDispatch } from 'react-redux';
 import { setUserDetails } from './store/userSlice';
 import TawkToChat from './TawkToChat';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   const dispatch = useDispatch()
@@ -63,6 +64,7 @@ function App() {
         cartProductCount, // current user Add to Cart  product count,
         fetchUserAddToCart
       }}>
+        <ScrollToTop />
         <ToastContainer
           position="top-center"
           toastClassName="custom-toast"
