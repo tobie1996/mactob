@@ -7,8 +7,8 @@ const Banner = () => {
     {
       id: 1,
       imageUrl: "https://img.freepik.com/premium-vector/smartphone-mobile-screen-technology-mobile-display-light-vector_3482-10935.jpg?w=996",
-      altText: "iPhone 15 Pro Max",
-      title: "iPhone 15 Pro Max",
+      altText: "Samsung Galaxy S23 Ultra",
+      title: "Samsung Galaxy",
       subtitle: "",
       price: "",
       productUrl: "https://mactob.vercel.app/product"
