@@ -9,8 +9,8 @@ const Banner = () => {
       imageUrl: "https://img.freepik.com/premium-vector/smartphone-mobile-screen-technology-mobile-display-light-vector_3482-10935.jpg?w=996",
       altText: "iPhone 15 Pro Max",
       title: "iPhone 15 Pro Max",
-      subtitle: "Écran Super Retina XDR - 256GB",
-      price: "1 199€",
+      subtitle: "",
+      price: "",
       productUrl: "https://mactob.vercel.app/product"
     },
     {
@@ -18,8 +18,8 @@ const Banner = () => {
       imageUrl: "https://img.freepik.com/premium-vector/smartphone-mobile-screen-technology-mobile-display-light-vector_3482-10653.jpg?w=996",
       altText: "MacBook Air M2",
       title: "MacBook Air M2",
-      subtitle: "Chip Apple M2 - 13.6\" - 8GB RAM",
-      price: "1 249€",
+      subtitle: "",
+      price: "",
       productUrl: "https://mactob.vercel.app/product"
     },
     {
@@ -28,7 +28,7 @@ const Banner = () => {
       altText: "Samsung Galaxy S23 Ultra",
       title: "Galaxy S23 Ultra",
       subtitle: "Appareil photo 200MP - 12GB RAM",
-      price: "1 259€",
+      price: "",
       productUrl: "https://mactob.vercel.app/product"
     },
     {
@@ -36,8 +36,8 @@ const Banner = () => {
       imageUrl: "https://img.freepik.com/premium-vector/smartphone-mobile-screen-technology-mobile-display-light-vector_3482-10653.jpg?w=996",
       altText: "Sony WH-1000XM5",
       title: "Sony WH-1000XM5",
-      subtitle: "Casque antibruit sans fil",
-      price: "379€",
+      subtitle: "",
+      price: "",
       productUrl: "https://mactob.vercel.app/product"
     }
   ];
