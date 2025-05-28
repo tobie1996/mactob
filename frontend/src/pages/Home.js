@@ -32,28 +32,6 @@ const Home = () => {
   return (
     <div>
        <Banner />
-      {/* <Benefits /> */}
-      <HorizontalCardProduct category="SMARTPHONES" heading="Smartphones Android et iOS : performance et innovation 📱" />
-      <HorizontalCardProduct category="IPHONE PROMAX" heading="iPhone Pro Max : puissance, élégance et grand écran 📱" />
-      <HorizontalCardProduct category="SAMSUNG" heading="Samsung Galaxy : design, innovation et polyvalence 🚀" />
-      <HorizontalCardProduct category="PIXEL" heading="Google Pixel : fluidité et photographie avancée 📸" />
-      <HorizontalCardProduct category="REDMI" heading="Redmi : smartphones performants à prix abordable 🔥" />
-      <HorizontalCardProduct category="HUAWEI" heading="Huawei : technologie de pointe et qualité photo exceptionnelle 📷" />
-      <HorizontalCardProduct category="GADGETS ÉLECTRONIQUE" heading="Découvrez les dernières innovations high-tech ⚡" />
-      <HorizontalCardProduct category="APPLE WATCH" heading="Apple Watch : élégance et suivi de santé intelligent ⌚" />
-      <HorizontalCardProduct category="ACCESSOIRES" heading="Tous les accessoires pour optimiser votre expérience mobile 🔌" />
-      <HorizontalCardProduct category="IPHONE 6" heading="iPhone 6 : un classique fiable et fonctionnel ⚙️" />
-      <HorizontalCardProduct category="IPHONE 7" heading="iPhone 7 : performance et design intemporel 🛡️" />
-      <HorizontalCardProduct category="IPHONE 8" heading="iPhone 8 : puissance et compacité dans un format élégant 🔋" />
-      <HorizontalCardProduct category="IPHONE XR" heading="iPhone XR : couleurs vives et écran Liquid Retina 📱" />
-      <HorizontalCardProduct category="IPHONE 11" heading="iPhone 11 : double caméra et autonomie impressionnante 🔥" />
-      <HorizontalCardProduct category="IPHONE 12" heading="iPhone 12 : design bord droit et puissance 5G ⚡" />
-      <HorizontalCardProduct category="IPHONE 13" heading="iPhone 13 : autonomie optimisée et photos exceptionnelles 📸" />
-      <HorizontalCardProduct category="IPHONE 14" heading="iPhone 14 : performances avancées et sécurité renforcée 🏆" />
-      <HorizontalCardProduct category="IPHONE 15" heading="iPhone 15 : design en titane et puissance ultime 🚀" />
-      <HorizontalCardProduct category="STOCK SCELLÉ CANADA DISPONIBLE 🇨🇦" heading="Stock scellé du Canada : smartphones authentiques et garantis 🇨🇦" />
-
-      
       <Title />
       
       {currentProducts.length > 0 ? (
