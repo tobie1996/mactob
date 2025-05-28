@@ -1,4 +1,4 @@
-const backendDomin = "https://mactob-store-backend.vercel.app/"
+const backendDomin = "https://mactob-store-backend.vercel.app"
 // const backendDomin = "http://localhost:4000"
 
 
