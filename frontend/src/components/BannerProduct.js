@@ -11,7 +11,7 @@ const Banner = () => {
       title: "iPhone 15 Pro Max",
       subtitle: "Écran Super Retina XDR - 256GB",
       price: "1 199€",
-      productUrl: "https://www.amazon.fr/Apple-iPhone-Pro-Max-256/dp/B0CHX6W6D4"
+      productUrl: "https://mactob.vercel.app/product"
     },
     {
       id: 2,
@@ -20,7 +20,7 @@ const Banner = () => {
       title: "MacBook Air M2",
       subtitle: "Chip Apple M2 - 13.6\" - 8GB RAM",
       price: "1 249€",
-      productUrl: "https://img.freepik.com/free-photo/black-person-setting-configuration-smart-home_657883-247.jpg?t=st=1746832950~exp=1746836550~hmac=53801967ab14be8bef9c2c07f36bf02dfe9fe38fc9eb32c3961683a85552d625&w=740"
+      productUrl: "https://mactob.vercel.app/product"
     },
     {
       id: 3,
@@ -29,7 +29,7 @@ const Banner = () => {
       title: "Galaxy S23 Ultra",
       subtitle: "Appareil photo 200MP - 12GB RAM",
       price: "1 259€",
-      productUrl: "https://img.freepik.com/premium-photo/logo-mobile-products-that-is-made-by-companys-brand_1189726-5329.jpg?w=740"
+      productUrl: "https://mactob.vercel.app/product"
     },
     {
       id: 4,
@@ -38,7 +38,7 @@ const Banner = () => {
       title: "Sony WH-1000XM5",
       subtitle: "Casque antibruit sans fil",
       price: "379€",
-      productUrl: "https://img.freepik.com/free-vector/antigravity-technology-with-elements_23-2148131463.jpg?t=st=1746832801~exp=1746836401~hmac=908f7606f34696e101c1a26ad43f15ddf5816fa1bd06afe0de7a805963b5d59a&w=740"
+      productUrl: "https://mactob.vercel.app/product"
     }
   ];
 
