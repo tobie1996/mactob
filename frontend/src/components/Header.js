@@ -79,29 +79,17 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="bg-gray-900 text-white fixed w-full z-50 top-0 shadow-lg">
+    <header className="bg-gradient-to-r from-gray-900 to-gray-800 text-white fixed w-full z-50 top-0 shadow-lg">
       <div className="container mx-auto px-4">
         {/* Main Header Content */}
         <div className="flex items-center justify-between h-16">
-          {/* Logo and Mobile Menu Button */}
-          <div className="flex items-center space-x-4">
-            {/* Mobile Menu Button */}
-            <button
-              className="md:hidden text-white focus:outline-none"
-              onClick={toggleMobileMenu}
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-            
-            {/* Logo */}
-            <Link to="/" className="flex items-center">
-              <span className="text-2xl font-bold">
-                <span className="text-white">Mac</span>
-                <span className="text-orange-500">Tob</span>
-              </span>
-            </Link>
-          </div>
+          {/* Logo */}
+          <Link to="/" className="flex items-center">
+            <span className="text-2xl font-bold">
+              <span className="text-white">Mac</span>
+              <span className="text-orange-500">Tob</span>
+            </span>
+          </Link>
 
           {/* Desktop Search Bar */}
           <div className="hidden md:flex flex-1 max-w-xl mx-6">
@@ -109,29 +97,29 @@ const Header = () => {
               <input
                 type="text"
                 placeholder="Rechercher des produits..."
-                className="w-full py-2 px-4 rounded-full bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full py-2 px-4 rounded-full bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-300"
                 onChange={handleSearch}
                 value={search}
               />
               <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-                <GrSearch />
+                <GrSearch className="hover:text-orange-500 transition-colors" />
               </div>
             </div>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
-            <Link to="/" className="text-white hover:text-orange-500 transition-colors">Accueil</Link>
-            <Link to="/product" className="text-white hover:text-orange-500 transition-colors">Articles</Link>
-            <Link to="/about" className="text-white hover:text-orange-500 transition-colors">À Propos</Link>
-            <Link to="/contact" className="text-white hover:text-orange-500 transition-colors">Contact</Link>
+            <Link to="/" className="text-white hover:text-orange-500 transition-colors duration-300">Accueil</Link>
+            <Link to="/product" className="text-white hover:text-orange-500 transition-colors duration-300">Articles</Link>
+            <Link to="/about" className="text-white hover:text-orange-500 transition-colors duration-300">À Propos</Link>
+            <Link to="/contact" className="text-white hover:text-orange-500 transition-colors duration-300">Contact</Link>
             
             {/* Cart Icon */}
             {user?._id && (
-              <Link to="/cart" className="relative text-white hover:text-orange-500 transition-colors">
+              <Link to="/cart" className="relative text-white hover:text-orange-500 transition-colors duration-300">
                 <TiShoppingCart size={24} />
                 {context?.cartProductCount > 0 && (
-                  <div className="absolute -top-2 -right-2 bg-orange-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                  <div className="absolute -top-2 -right-2 bg-orange-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center animate-bounce">
                     {context?.cartProductCount}
                   </div>
                 )}
@@ -145,12 +133,12 @@ const Header = () => {
                   <div className="relative" ref={menuRef}>
                     <button 
                       onClick={() => setMenuDisplay(!menuDisplay)}
-                      className="flex items-center space-x-1 focus:outline-none"
+                      className="flex items-center space-x-1 focus:outline-none hover:text-orange-500 transition-colors duration-300"
                     >
                       {user?.profilePic ? (
                         <img 
                           src={user?.profilePic} 
-                          className="w-8 h-8 rounded-full object-cover" 
+                          className="w-8 h-8 rounded-full object-cover border-2 border-orange-500" 
                           alt={user?.name}
                         />
                       ) : (
@@ -159,14 +147,14 @@ const Header = () => {
                     </button>
                     
                     {menuDisplay && (
-                      <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                      <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 transform transition-all duration-300 ease-in-out">
                         <div className="px-4 py-2 text-sm text-gray-700 border-b">
                           <p className="font-medium">Bonjour, {user?.name}</p>
                         </div>
                         {user?.role === ROLE.ADMIN && (
                           <Link 
                             to="/admin-panel/all-products" 
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-300"
                             onClick={() => setMenuDisplay(false)}
                           >
                             Admin Dashboard
@@ -174,7 +162,7 @@ const Header = () => {
                         )}
                         <button
                           onClick={handleLogout}
-                          className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-300"
                         >
                           Déconnexion
                         </button>
@@ -185,13 +173,22 @@ const Header = () => {
               ) : (
                 <Link 
                   to="/login" 
-                  className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md transition-colors"
+                  className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md transition-all duration-300 transform hover:scale-105"
                 >
                   Connexion
                 </Link>
               )}
             </div>
           </nav>
+
+          {/* Mobile Menu Button - Moved to right */}
+          <button
+            className="md:hidden text-white focus:outline-none hover:text-orange-500 transition-colors duration-300"
+            onClick={toggleMobileMenu}
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
 
         {/* Mobile Search Bar (shown only when not in mobile menu) */}
@@ -201,12 +198,12 @@ const Header = () => {
               <input
                 type="text"
                 placeholder="Rechercher..."
-                className="w-full py-2 px-4 rounded-full bg-gray-800 text-white placeholder-gray-400 focus:outline-none"
+                className="w-full py-2 px-4 rounded-full bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-300"
                 onChange={handleSearch}
                 value={search}
               />
               <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-                <GrSearch />
+                <GrSearch className="hover:text-orange-500 transition-colors" />
               </div>
             </div>
           </div>
@@ -216,34 +213,34 @@ const Header = () => {
       {/* Mobile Menu */}
       <div 
         ref={mobileMenuRef}
-        className={`md:hidden fixed inset-0 bg-gray-900 z-40 transform ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out`}
+        className={`md:hidden fixed inset-0 bg-gradient-to-b from-gray-900 to-gray-800 z-40 transform ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out`}
       >
         <div className="flex flex-col h-full pt-20 px-6 space-y-6">
           <div className="flex flex-col space-y-4">
             <Link 
               to="/" 
-              className="text-white text-xl py-2 border-b border-gray-800 hover:text-orange-500"
+              className="text-white text-xl py-2 border-b border-gray-800 hover:text-orange-500 transition-colors duration-300"
               onClick={handleCloseMobileMenu}
             >
               Accueil
             </Link>
             <Link 
               to="/product" 
-              className="text-white text-xl py-2 border-b border-gray-800 hover:text-orange-500"
+              className="text-white text-xl py-2 border-b border-gray-800 hover:text-orange-500 transition-colors duration-300"
               onClick={handleCloseMobileMenu}
             >
               Articles
             </Link>
             <Link 
               to="/about" 
-              className="text-white text-xl py-2 border-b border-gray-800 hover:text-orange-500"
+              className="text-white text-xl py-2 border-b border-gray-800 hover:text-orange-500 transition-colors duration-300"
               onClick={handleCloseMobileMenu}
             >
               À Propos
             </Link>
             <Link 
               to="/contact" 
-              className="text-white text-xl py-2 border-b border-gray-800 hover:text-orange-500"
+              className="text-white text-xl py-2 border-b border-gray-800 hover:text-orange-500 transition-colors duration-300"
               onClick={handleCloseMobileMenu}
             >
               Contact
@@ -257,7 +254,7 @@ const Header = () => {
                   {user?.profilePic ? (
                     <img 
                       src={user?.profilePic} 
-                      className="w-10 h-10 rounded-full object-cover" 
+                      className="w-10 h-10 rounded-full object-cover border-2 border-orange-500" 
                       alt={user?.name}
                     />
                   ) : (
@@ -268,13 +265,13 @@ const Header = () => {
                 
                 <Link 
                   to="/cart" 
-                  className="flex items-center text-white hover:text-orange-500"
+                  className="flex items-center text-white hover:text-orange-500 transition-colors duration-300"
                   onClick={handleCloseMobileMenu}
                 >
                   <TiShoppingCart size={24} className="mr-2" />
                   Panier
                   {context?.cartProductCount > 0 && (
-                    <span className="ml-2 bg-orange-600 text-white text-xs px-2 py-1 rounded-full">
+                    <span className="ml-2 bg-orange-600 text-white text-xs px-2 py-1 rounded-full animate-bounce">
                       {context?.cartProductCount}
                     </span>
                   )}
@@ -283,7 +280,7 @@ const Header = () => {
                 {user?.role === ROLE.ADMIN && (
                   <Link 
                     to="/admin-panel/all-products" 
-                    className="text-white hover:text-orange-500"
+                    className="text-white hover:text-orange-500 transition-colors duration-300"
                     onClick={handleCloseMobileMenu}
                   >
                     Admin Dashboard
@@ -292,7 +289,7 @@ const Header = () => {
                 
                 <button
                   onClick={handleLogout}
-                  className="text-white hover:text-orange-500 text-left"
+                  className="text-white hover:text-orange-500 text-left transition-colors duration-300"
                 >
                   Déconnexion
                 </button>
@@ -300,7 +297,7 @@ const Header = () => {
             ) : (
               <Link 
                 to="/login" 
-                className="block w-full bg-orange-600 hover:bg-orange-700 text-white text-center py-3 rounded-md"
+                className="block w-full bg-orange-600 hover:bg-orange-700 text-white text-center py-3 rounded-md transition-all duration-300 transform hover:scale-105"
                 onClick={handleCloseMobileMenu}
               >
                 Connexion
