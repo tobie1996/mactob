@@ -3,6 +3,7 @@ import UploadProduct from '../components/UploadProduct';
 import SummaryApi from '../common';
 import AdminProductCard from '../components/AdminProductCard';
 import { toast } from 'react-toastify';
+import { FaPlus } from 'react-icons/fa';
 
 const AllProducts = () => {
   const [openUploadProduct, setOpenUploadProduct] = useState(false);
@@ -10,7 +11,7 @@ const AllProducts = () => {
 
   const fetchAllProduct = async () => {
     const token = localStorage.getItem("token");
-    const userId = JSON.parse(atob(token.split('.')[1]))._id; // Decode token to get userId
+    const userId = JSON.parse(atob(token.split('.')[1]))._id;
 
     try {
       const response = await fetch(SummaryApi.allProduct.url, {
@@ -24,7 +25,6 @@ const AllProducts = () => {
       const dataResponse = await response.json();
 
       if (response.ok) {
-        // Filter products by userId
         const filteredProducts = dataResponse.data.filter(product => product.userId === userId);
         setAllProduct(filteredProducts || []);
       } else {
@@ -42,31 +42,33 @@ const AllProducts = () => {
   }, []);
 
   return (
-    <div>
-      <div className='bg-black py-2 px-4 flex justify-between items-center left-20'>
-        <h2 className='font-bold text-lg text-center text-white'>Produits</h2>
+    <div className='space-y-6'>
+      <div className='flex justify-between items-center'>
+        <h2 className='text-2xl font-bold text-gray-800'>Gestion des Produits</h2>
         <button
-          className='border-2 w-40 border-white text-white hover:bg-green-600 hover:text-white transition-all py-1 px-3 rounded-full'
-          onClick={() => setOpenUploadProduct(true)}>Nouveau produit</button>
+          className='flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-md'
+          onClick={() => setOpenUploadProduct(true)}>
+          <FaPlus className='text-sm' />
+          <span>Nouveau produit</span>
+        </button>
       </div>
 
-      {/** all product */}
-      <div className='flex items-center justify-center flex-wrap gap-5 py-4 h-[calc(100vh-190px)] overflow-y-scroll'>
-        {
-          allProduct.map((product, index) => {
-            return (
-              <AdminProductCard data={product} key={index + "allProduct"} fetchdata={fetchAllProduct} />
-            );
-          })
-        }
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
+        {allProduct.map((product, index) => (
+          <AdminProductCard 
+            data={product} 
+            key={index + "allProduct"} 
+            fetchdata={fetchAllProduct} 
+          />
+        ))}
       </div>
 
-      {/** upload product component */}
-      {
-        openUploadProduct && (
-          <UploadProduct onClose={() => setOpenUploadProduct(false)} fetchData={fetchAllProduct} />
-        )
-      }
+      {openUploadProduct && (
+        <UploadProduct 
+          onClose={() => setOpenUploadProduct(false)} 
+          fetchData={fetchAllProduct} 
+        />
+      )}
     </div>
   );
 }

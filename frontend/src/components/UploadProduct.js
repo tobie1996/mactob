@@ -96,130 +96,161 @@ const UploadProduct = ({ onClose, fetchData }) => {
   };
 
   return (
-    <div className='fixed w-full h-full bg-opacity-35 top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50'>
-      <div className='bg-white p-4 rounded w-full max-w-2xl h-full max-h-[80%] overflow-hidden sm:w-[90%] sm:h-[90%]'>
-        <div className='flex justify-between items-center pb-3 bg-black p-3 text-white'>
-          <h2 className='font-bold text-lg bg-green-950'>Nouveau produit</h2>
-          <div className='w-fit ml-auto text-2xl hover:text-red-600 cursor-pointer' onClick={onClose}>
-            <CgClose />
-          </div>
+    <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4'>
+      <div className='bg-white rounded-xl w-full max-w-2xl max-h-[90vh] overflow-hidden'>
+        <div className='flex justify-between items-center p-4 bg-gray-50 border-b'>
+          <h2 className='text-xl font-semibold text-gray-800'>Nouveau produit</h2>
+          <button 
+            onClick={onClose}
+            className='p-2 hover:bg-gray-200 rounded-full transition-colors duration-200'
+          >
+            <CgClose className='text-2xl text-gray-600' />
+          </button>
         </div>
 
-        <form className='grid p-4 gap-2 overflow-y-scroll h-full pb-5' onSubmit={handleSubmit}>
-          <label htmlFor='productName'>Titre :</label>
-          <input
-            type='text'
-            id='productName'
-            placeholder='Entrez le nom du produit'
-            name='productName'
-            value={data.productName}
-            onChange={handleOnChange}
-            className='p-2 bg-slate-100 border rounded'
-            required
-          />
+        <form className='p-6 space-y-4 overflow-y-auto max-h-[calc(90vh-80px)]' onSubmit={handleSubmit}>
+          <div className='space-y-2'>
+            <label htmlFor='productName' className='block text-sm font-medium text-gray-700'>Titre</label>
+            <input
+              type='text'
+              id='productName'
+              placeholder='Entrez le nom du produit'
+              name='productName'
+              value={data.productName}
+              onChange={handleOnChange}
+              className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+              required
+            />
+          </div>
 
-          <label htmlFor='brandName' className='mt-3'>Marque :</label>
-          <input
-            type='text'
-            id='brandName'
-            placeholder='Entrez la marque'
-            value={data.brandName}
-            name='brandName'
-            onChange={handleOnChange}
-            className='p-2 bg-slate-100 border rounded'
-            required
-          />
+          <div className='space-y-2'>
+            <label htmlFor='brandName' className='block text-sm font-medium text-gray-700'>Marque</label>
+            <input
+              type='text'
+              id='brandName'
+              placeholder='Entrez la marque'
+              value={data.brandName}
+              name='brandName'
+              onChange={handleOnChange}
+              className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+              required
+            />
+          </div>
 
-          <label htmlFor='category' className='mt-3'>Catégorie :</label>
-          <select
-            required
-            value={data.category}
-            name='category'
-            onChange={handleOnChange}
-            className='p-2 bg-slate-100 border rounded'
-          >
-            <option value="">Sélectionner</option>
-            {productCategory.map((el, index) => (
-              <option value={el.value} key={el.value + index}>{el.label}</option>
-            ))}
-          </select>
+          <div className='space-y-2'>
+            <label htmlFor='category' className='block text-sm font-medium text-gray-700'>Catégorie</label>
+            <select
+              required
+              value={data.category}
+              name='category'
+              onChange={handleOnChange}
+              className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+            >
+              <option value="">Sélectionner</option>
+              {productCategory.map((el, index) => (
+                <option value={el.value} key={el.value + index}>{el.label}</option>
+              ))}
+            </select>
+          </div>
 
-          <label htmlFor='productImage' className='mt-3'>Images :</label>
-          <label htmlFor='uploadImageInput'>
-            <div className='p-2 bg-slate-100 border rounded h-32 w-full flex justify-center items-center cursor-pointer'>
-              <div className='text-slate-500 flex justify-center items-center flex-col gap-2'>
-                <span className='text-4xl'><FaCloudUploadAlt /></span>
-                <p className='text-sm'>Importation des images</p>
-                <input type='file' id='uploadImageInput' className='hidden' onChange={handleUploadProduct} />
+          <div className='space-y-2'>
+            <label className='block text-sm font-medium text-gray-700'>Images</label>
+            <label htmlFor='uploadImageInput' className='block'>
+              <div className='border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition-colors duration-200 cursor-pointer'>
+                <div className='flex flex-col items-center gap-2'>
+                  <FaCloudUploadAlt className='text-4xl text-gray-400' />
+                  <p className='text-sm text-gray-600'>Cliquez pour sélectionner des images</p>
+                  <input type='file' id='uploadImageInput' className='hidden' onChange={handleUploadProduct} />
+                </div>
               </div>
-            </div>
-          </label>
+            </label>
 
-          <div>
             {data?.productImage.length > 0 ? (
-              <div className='flex items-center gap-2'>
+              <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4'>
                 {data.productImage.map((el, index) => (
-                  <div className='relative group' key={el + index}>
+                  <div key={index} className='relative group'>
                     <img
                       src={el}
                       alt={el}
-                      width={80}
-                      height={80}
-                      className='bg-slate-100 border cursor-pointer'
+                      className='w-full h-24 object-cover rounded-lg cursor-pointer'
                       onClick={() => {
                         setOpenFullScreenImage(true);
                         setFullScreenImage(el);
                       }}
                     />
-                    <div
-                      className='absolute bottom-0 right-0 p-1 text-white bg-blue-600 rounded-full hidden group-hover:block cursor-pointer'
+                    <button
+                      type='button'
+                      className='absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200'
                       onClick={() => handleDeleteProductImage(index)}
                     >
                       <MdDelete />
-                    </div>
+                    </button>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className='text-red-600 text-xs'>* Veuillez sélectionner au moins une image</p>
+              <p className='text-sm text-red-600 mt-2'>*Veuillez sélectionner au moins une image</p>
             )}
           </div>
 
-          <label htmlFor='price' className='mt-3'>Ancien prix :</label>
-          <input
-            type='number'
-            id='price'
-            placeholder='Entrez le prix'
-            value={data.price}
-            name='price'
-            onChange={handleOnChange}
-            className='p-2 bg-slate-100 border rounded'
-            required
-          />
+          <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
+            <div className='space-y-2'>
+              <label htmlFor='price' className='block text-sm font-medium text-gray-700'>Ancien prix</label>
+              <input
+                type='number'
+                id='price'
+                placeholder='Entrez le prix'
+                value={data.price}
+                name='price'
+                onChange={handleOnChange}
+                className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+                required
+              />
+            </div>
 
-          <label htmlFor='sellingPrice' className='mt-3'>Nouveau prix :</label>
-          <input
-            type='number'
-            id='sellingPrice'
-            placeholder='Entrez le prix de vente'
-            value={data.sellingPrice}
-            name='sellingPrice'
-            onChange={handleOnChange}
-            className='p-2 bg-slate-100 border rounded'
-            required
-          />
+            <div className='space-y-2'>
+              <label htmlFor='sellingPrice' className='block text-sm font-medium text-gray-700'>Nouveau prix</label>
+              <input
+                type='number'
+                id='sellingPrice'
+                placeholder='Entrez le prix de vente'
+                value={data.sellingPrice}
+                name='sellingPrice'
+                onChange={handleOnChange}
+                className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+                required
+              />
+            </div>
+          </div>
 
-          <label htmlFor='description' className='mt-3'>Description :</label>
-          <textarea
-            className='h-28 bg-slate-100 border resize-none p-1'
-            placeholder='Entrez la description du produit'
-            rows={3}
-            onChange={handleOnChange}
-            name='description'
-            value={data.description}
-          />
+          <div className='space-y-2'>
+            <label htmlFor='description' className='block text-sm font-medium text-gray-700'>Description</label>
+            <textarea
+              id='description'
+              className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none'
+              placeholder='Entrez la description du produit'
+              rows={4}
+              onChange={handleOnChange}
+              name='description'
+              value={data.description}
+            />
+          </div>
 
-          <button className='px-3 py-2 bg-black text-white mb-10 hover:bg-orange-700'>Enregistrer</button>
+          <div className='flex justify-end gap-4 pt-4'>
+            <button
+              type='button'
+              onClick={onClose}
+              className='px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors duration-200'
+            >
+              Annuler
+            </button>
+            <button
+              type='submit'
+              className='px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200'
+            >
+              Enregistrer
+            </button>
+          </div>
         </form>
       </div>
 
