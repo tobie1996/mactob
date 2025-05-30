@@ -203,7 +203,7 @@ const ProductDetails = () => {
               {/* Action Buttons */}
               <div className='flex flex-col sm:flex-row gap-4 pt-4'>
                 <Link
-                  to={`https://wa.me/237696926972?text=Bonjour, je suis intéressé par le produit ${encodeURIComponent(data.productName)} (${displayINRCurrency(data.sellingPrice)})`}
+                  to={`https://wa.me/237658306477?text=Bonjour, je suis intéressé par le produit ${encodeURIComponent(data.productName)} (${displayINRCurrency(data.sellingPrice)})`}
                   target='_blank'
                   rel='noopener noreferrer'
                   className='flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors shadow-md hover:shadow-lg'
@@ -213,7 +213,7 @@ const ProductDetails = () => {
                 </Link>
 
                 <Link
-                  to='tel:+237696926972'
+                  to='tel:+237658306477'
                   className='flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors shadow-md hover:shadow-lg'
                 >
                   <PiPhoneCallFill className='text-xl' />

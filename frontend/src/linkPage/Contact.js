@@ -7,7 +7,7 @@ const ContactPage = () => {
       icon: <FaPhoneAlt className="text-3xl" />,
       title: 'Téléphone',
       content: 'Appelez-nous au (+237) 6 96 92 69 72',
-      link: 'tel:+237696926972',
+      link: 'tel:+237658306477',
       color: 'bg-blue-100 text-blue-600'
     },
     {
@@ -21,7 +21,7 @@ const ContactPage = () => {
       icon: <FaWhatsapp className="text-3xl" />,
       title: 'WhatsApp',
       content: 'Écrivez-nous au (+237) 6 96 92 69 72',
-      link: 'https://api.whatsapp.com/send?phone=237696926972&text=Bonjour%2C%20je%20souhaite%20plus%20d%27informations%20sur%20vos%20produits.',
+      link: 'https://api.whatsapp.com/send?phone=237658306477&text=Bonjour%2C%20je%20souhaite%20plus%20d%27informations%20sur%20vos%20produits.',
       color: 'bg-emerald-100 text-emerald-600'
     },
     {

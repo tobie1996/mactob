@@ -54,7 +54,7 @@ const Footer = () => {
                 <BsInstagram className="w-4 h-4" />
               </Link>
               <Link 
-                to="https://wa.me/237696926972" 
+                to="https://wa.me/237658306477" 
                 target="_blank"
                 className="bg-gray-700 hover:bg-green-500 p-2 rounded-full transition-colors"
               >

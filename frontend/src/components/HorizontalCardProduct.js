@@ -98,7 +98,7 @@ const HorizontalCardProduct = ({ category, heading }) => {
                                                 {'★'.repeat(product.rating)}{'☆'.repeat(5 - product.rating)}
                                             </div>
                                             <a 
-                                                href={`https://api.whatsapp.com/send?phone=237696926972&text=${encodeURIComponent(message)}`}
+                                                href={`https://api.whatsapp.com/send?phone=237658306477&text=${encodeURIComponent(message)}`}
                                                 target='_blank'
                                                 rel='noreferrer'
                                                 className='flex items-center justify-center text-sm bg-gradient-to-r from-green-600 to-green-400 hover:bg-orange-500 text-white px-4 py-2 rounded-full'>

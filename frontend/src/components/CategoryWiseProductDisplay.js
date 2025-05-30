@@ -55,7 +55,7 @@ const CategoryWiseProductDisplay = ({ category, heading }) => {
                 ) : (
                     selectedProducts.map((product) => {
                         const whatsappMessage = `Bonjour, je suis intéressé par le produit ${product?.productName} (${displayINRCurrency(product?.sellingPrice)}). Pouvez-vous m'en dire plus ?`;
-                        const phoneNumber = '+237696926972';
+                        const phoneNumber = '+237658306477';
 
                         return (
                             <div 
