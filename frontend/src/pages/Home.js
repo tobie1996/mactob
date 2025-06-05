@@ -7,6 +7,7 @@ import Banner from '../components/BannerProduct';
 
 const Home = () => {
   const products = [
+    { category: "NOUVEAUX IPHONE", heading: "Découvrez nos derniers iPhone neufs, garantis et scellés d'origine 🇨🇦" },
     { category: "IPHONE 15", heading: "iPhone 15 : Le dernier cri de la technologie Apple 📱" },
     { category: "IPHONE 14", heading: "iPhone 14 : Innovation et sécurité renforcées 📱" },
     { category: "IPHONE 13", heading: "iPhone 13 : Performance et autonomie exceptionnelles 📱" },
@@ -14,7 +15,6 @@ const Home = () => {
     { category: "IPHONE 11", heading: "iPhone 11 : Photographie révolutionnaire 📱" },
     { category: "IPHONE XR", heading: "iPhone XR : Expérience premium à prix accessible 📱" },
     { category: "IPHONE 8", heading: "iPhone 8 : Équilibre parfait entre puissance et prix 📱" },
-    { category: "STOCK SCELLÉ CANADA DISPONIBLE 🇨🇦", heading: "Produits scellés garantis d'origine canadienne 🇨🇦" },
     { category: "SMARTPHONES", heading: "Large gamme de smartphones de qualité 📱" },
     { category: "IPHONE PROMAX", heading: "iPhone Pro Max : puissance et grand écran 📱" },
     { category: "SAMSUNG", heading: "Smartphones Samsung innovants et polyvalents 📱" },
