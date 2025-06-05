@@ -1,27 +1,28 @@
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaPaperPlane } from 'react-icons/fa';
 import { MdOutlineSupportAgent } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 const ContactPage = () => {
   const contactMethods = [
     {
       icon: <FaPhoneAlt className="text-3xl" />,
       title: 'Téléphone',
-      content: 'Appelez-nous au (+237)658 30 64 77'',
-      link: 'tel:+237658306477',
+      content: 'Appelez-nous au (+237)658 30 64 77',
+      Link: 'tel:+237658306477',
       color: 'bg-blue-100 text-blue-600'
     },
     {
       icon: <FaEnvelope className="text-3xl" />,
       title: 'Email',
       content: 'Envoyez-nous un email à tobiemba@gmail.com',
-      link: 'mailto:tobiemba@gmail.com',
+      Link: 'mailto:tobiemba@gmail.com',
       color: 'bg-green-100 text-green-600'
     },
     {
       icon: <FaWhatsapp className="text-3xl" />,
       title: 'WhatsApp',
-      content: 'Écrivez-nous au (+237)658 30 64 77'',
-      link: 'https://api.whatsapp.com/send?phone=237658306477&text=Bonjour%2C%20je%20souhaite%20plus%20d%27informations%20sur%20vos%20produits.',
+      content: 'Écrivez-nous au (+237)658 30 64 77',
+      Link: 'https://api.whatsapp.com/send?phone=237658306477&text=Bonjour%2C%20je%20souhaite%20plus%20d%27informations%20sur%20vos%20produits.',
       color: 'bg-emerald-100 text-emerald-600'
     },
     {
