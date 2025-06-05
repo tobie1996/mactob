@@ -5,7 +5,7 @@ const AboutPage = () => {
     {
       icon: <FaRegBuilding className="text-4xl" />,
       title: "Notre Histoire",
-      description: "Fondé en 2020, Mactob Store est né de la passion pour la technologie et du désir d'offrir des produits électroniques de qualité supérieure avec un service client exceptionnel.",
+      description: "Fondé en 2020, Dimi Business est né de la passion pour la technologie et du désir d'offrir des produits électroniques de qualité supérieure avec un service client exceptionnel.",
       color: "text-blue-400"
     },
     {
@@ -53,10 +53,10 @@ const AboutPage = () => {
       <div className="bg-gradient-to-r from-gray-900 to-gray-800 py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            À propos de <span className="text-orange-500">Mactob Store</span>
+            À propos de <span className="text-orange-500">Dimi Business</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Depuis 2020, Mactob Store s'engage à fournir les meilleurs produits électroniques et services à ses clients.
+            Depuis 2020, Dimi Business s'engage à fournir les meilleurs produits électroniques et services à ses clients.
             Basé à Yaoundé, nous offrons une gamme complète de produits électroniques de qualité.
           </p>
         </div>
@@ -77,7 +77,7 @@ const AboutPage = () => {
       {/* Features Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Pourquoi choisir Mactob Store ?</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Pourquoi choisir Dimi Business ?</h2>
           <div className="w-20 h-1 bg-orange-500 mx-auto"></div>
         </div>
 
@@ -111,7 +111,7 @@ const AboutPage = () => {
             <div className="lg:w-1/2">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">Notre Mission</h2>
               <p className="text-gray-600 mb-6 leading-relaxed">
-                Chez Mactob Store, nous croyons que la technologie devrait être accessible à tous. Notre mission est de fournir des produits électroniques de haute qualité à des prix compétitifs, accompagnés d'un service client exceptionnel.
+                Chez Dimi Business, nous croyons que la technologie devrait être accessible à tous. Notre mission est de fournir des produits électroniques de haute qualité à des prix compétitifs, accompagnés d'un service client exceptionnel.
               </p>
               <div className="space-y-4">
                 <div className="flex items-start">

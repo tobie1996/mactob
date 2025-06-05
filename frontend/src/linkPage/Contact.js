@@ -6,7 +6,7 @@ const ContactPage = () => {
     {
       icon: <FaPhoneAlt className="text-3xl" />,
       title: 'Téléphone',
-      content: 'Appelez-nous au (+237) 6 96 92 69 72',
+      content: 'Appelez-nous au (+237)658 30 64 77'',
       link: 'tel:+237658306477',
       color: 'bg-blue-100 text-blue-600'
     },
@@ -20,7 +20,7 @@ const ContactPage = () => {
     {
       icon: <FaWhatsapp className="text-3xl" />,
       title: 'WhatsApp',
-      content: 'Écrivez-nous au (+237) 6 96 92 69 72',
+      content: 'Écrivez-nous au (+237)658 30 64 77'',
       link: 'https://api.whatsapp.com/send?phone=237658306477&text=Bonjour%2C%20je%20souhaite%20plus%20d%27informations%20sur%20vos%20produits.',
       color: 'bg-emerald-100 text-emerald-600'
     },
@@ -44,7 +44,7 @@ const ContactPage = () => {
       <div className="bg-gradient-to-r from-gray-900 to-gray-800 py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Contactez <span className="text-orange-500">Mactob Store</span>
+            Contactez <span className="text-orange-500">Dimi Business</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Nous sommes là pour vous aider ! Notre équipe est disponible pour répondre à toutes vos questions et vous accompagner dans vos achats.

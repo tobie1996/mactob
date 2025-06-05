@@ -90,7 +90,7 @@ const Footer = () => {
                 <MdOutlineMailOutline className="text-orange-500 mt-1 mr-2 flex-shrink-0" />
                 <div>
                   <p className="text-gray-300 text-sm">Email</p>
-                  <a href="mailto:djuignekengnemariole@gmail.com" className="hover:text-orange-500 transition-colors">contact@mactob.com</a>
+                  <a href="mailto:Pekadimitri@icloud.com" className="hover:text-orange-500 transition-colors">Pekadimitri@icloud.com</a>
                 </div>
               </li>
               <li className="flex items-start">
