@@ -42,11 +42,6 @@ const VerticalCardProduct = ({ category, heading }) => {
         }
     };
 
-    const handleAddToCart = async (e, productId) => {
-        e.preventDefault();
-        await addToCart(productId, 1);
-        fetchUserAddToCart();
-    };
 
     return (
         <div className='container mx-auto px-4 my-12 relative'>
