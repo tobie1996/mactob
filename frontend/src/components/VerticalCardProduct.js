@@ -11,6 +11,8 @@ import { FaStar } from 'react-icons/fa';
 const VerticalCardProduct = ({ category, heading }) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [showLeftArrow, setShowLeftArrow] = useState(false);
+    const [showRightArrow, setShowRightArrow] = useState(true);
     const loadingList = new Array(13).fill(null);
     const scrollElement = useRef(null);
     const { fetchUserAddToCart } = useContext(Context);
@@ -30,18 +32,42 @@ const VerticalCardProduct = ({ category, heading }) => {
         fetchData();
     }, [fetchData]);
 
+    const checkScroll = () => {
+        if (scrollElement.current) {
+            const { scrollLeft, scrollWidth, clientWidth } = scrollElement.current;
+            setShowLeftArrow(scrollLeft > 0);
+            setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 10);
+        }
+    };
+
     const scrollRight = () => {
         if (scrollElement.current) {
-            scrollElement.current.scrollLeft += 300;
+            scrollElement.current.scrollBy({
+                left: 300,
+                behavior: 'smooth'
+            });
+            setTimeout(checkScroll, 500);
         }
     };
 
     const scrollLeft = () => {
         if (scrollElement.current) {
-            scrollElement.current.scrollLeft -= 300;
+            scrollElement.current.scrollBy({
+                left: -300,
+                behavior: 'smooth'
+            });
+            setTimeout(checkScroll, 500);
         }
     };
 
+    useEffect(() => {
+        const scrollContainer = scrollElement.current;
+        if (scrollContainer) {
+            scrollContainer.addEventListener('scroll', checkScroll);
+            checkScroll();
+            return () => scrollContainer.removeEventListener('scroll', checkScroll);
+        }
+    }, [data]);
 
     return (
         <div className='container mx-auto px-4 my-12 relative'>
@@ -50,27 +76,32 @@ const VerticalCardProduct = ({ category, heading }) => {
                     <div className='flex justify-between items-center mb-6'>
                         <h2 className='text-2xl font-bold text-gray-800'>{heading}</h2>
                         <div className='flex gap-2'>
-                            <button 
-                                onClick={scrollLeft}
-                                className='bg-white shadow-lg rounded-full p-3 hover:bg-gray-100 transition-colors'
-                                aria-label="Scroll left"
-                            >
-                                <FaAngleLeft className='text-gray-600' />
-                            </button>
-                            <button 
-                                onClick={scrollRight}
-                                className='bg-white shadow-lg rounded-full p-3 hover:bg-gray-100 transition-colors'
-                                aria-label="Scroll right"
-                            >
-                                <FaAngleRight className='text-gray-600' />
-                            </button>
+                            {showLeftArrow && (
+                                <button 
+                                    onClick={scrollLeft}
+                                    className='bg-white shadow-lg rounded-full p-3 hover:bg-gray-100 transition-colors fixed left-4 top-1/2 transform -translate-y-1/2 z-10'
+                                    aria-label="Scroll left"
+                                >
+                                    <FaAngleLeft className='text-gray-600' />
+                                </button>
+                            )}
+                            {showRightArrow && (
+                                <button 
+                                    onClick={scrollRight}
+                                    className='bg-white shadow-lg rounded-full p-3 hover:bg-gray-100 transition-colors fixed right-4 top-1/2 transform -translate-y-1/2 z-10'
+                                    aria-label="Scroll right"
+                                >
+                                    <FaAngleRight className='text-gray-600' />
+                                </button>
+                            )}
                         </div>
                     </div>
 
                     <div className='relative'>
                         <div 
-                            className='flex gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth'
+                            className='flex gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth pb-4'
                             ref={scrollElement}
+                            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                         >
                             {loading ? (
                                 loadingList.map((_, index) => (
