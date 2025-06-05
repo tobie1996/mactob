@@ -3,27 +3,30 @@ const userModel = require("../../models/userModel")
 async function updateUser(req, res) {
     try {
         const sessionUser = req.userId
-
         const { userId, email, name, role } = req.body
+
+        // Vérifier si l'utilisateur actuel est ADMIN ou SUPERADMIN
+        const currentUser = await userModel.findById(sessionUser)
+        if (!currentUser || (currentUser.role !== 'ADMIN' && currentUser.role !== 'SUPERADMIN')) {
+            throw new Error("Non autorisé à effectuer cette action")
+        }
+
+        // Seul un SUPERADMIN peut modifier les rôles
+        if (role && currentUser.role !== 'SUPERADMIN') {
+            throw new Error("Seul un SUPERADMIN peut modifier les rôles")
+        }
 
         const payload = {
             ...(email && { email: email }),
             ...(name && { name: name }),
-            ...(role && { role: role }),
+            ...(role && currentUser.role === 'SUPERADMIN' && { role: role }),
         }
-
-        const user = await userModel.findById(sessionUser)
-
-        console.log("user.role", user.role)
-
-
 
         const updateUser = await userModel.findByIdAndUpdate(userId, payload)
 
-
         res.json({
             data: updateUser,
-            message: "User Utilisateur mis à jour",
+            message: "Utilisateur mis à jour avec succès",
             success: true,
             error: false
         })
@@ -35,6 +38,5 @@ async function updateUser(req, res) {
         })
     }
 }
-
 
 module.exports = updateUser

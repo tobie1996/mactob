@@ -12,10 +12,15 @@ const AdminPanel = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (user?.role !== ROLE.ADMIN && user?.role !== 'SUPERADMIN') {
+        if (!user || (user.role !== ROLE.ADMIN && user.role !== 'SUPERADMIN')) {
             navigate("/");
+            return;
         }
-    }, [user]);
+    }, [user, navigate]);
+
+    if (!user || (user.role !== ROLE.ADMIN && user.role !== 'SUPERADMIN')) {
+        return null;
+    }
 
     return (
         <div className='flex flex-col md:flex-row w-full min-h-screen bg-gray-50'>

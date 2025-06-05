@@ -3,12 +3,21 @@ import { MdDelete, MdModeEditOutline } from "react-icons/md";
 import AdminEditProduct from './AdminEditProduct';
 import displayINRCurrency from '../helpers/displayCurrency';
 import SummaryApi from '../common';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-hot-toast';
 
-const AdminProductCard = ({ data, fetchdata }) => {
+const AdminProductCard = ({ data, fetchdata, isSuperAdmin }) => {
   const [editProduct, setEditProduct] = useState(false);
+  const user = useSelector(state => state?.user?.user);
 
   const deleteProducts = async (id) => {
     try {
+      // Vérifier si l'utilisateur a le droit de supprimer ce produit
+      if (!isSuperAdmin && data.userId !== user._id) {
+        toast.error("Vous n'avez pas la permission de supprimer ce produit");
+        return;
+      }
+
       const body = JSON.stringify({ _id: id });
 
       const response = await fetch(SummaryApi.deleteProduct.url, {
@@ -28,7 +37,7 @@ const AdminProductCard = ({ data, fetchdata }) => {
         console.error(responseData.message);
       }
     } catch (err) {
-      console.error("Error deleting product:", err.message);
+      console.error("Erreur lors de la suppression du produit:", err.message);
     }
   };
 
@@ -54,6 +63,11 @@ const AdminProductCard = ({ data, fetchdata }) => {
             <MdDelete className='text-xl' />
           </button>
         </div>
+        {isSuperAdmin && (
+          <div className='absolute top-2 left-2 bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full'>
+            {data.userId === user._id ? 'Votre produit' : 'Produit d\'un autre admin'}
+          </div>
+        )}
       </div>
       
       <div className='p-4'>
@@ -76,7 +90,8 @@ const AdminProductCard = ({ data, fetchdata }) => {
         <AdminEditProduct 
           productData={data} 
           onClose={() => setEditProduct(false)} 
-          fetchdata={fetchdata} 
+          fetchdata={fetchdata}
+          isSuperAdmin={isSuperAdmin}
         />
       )}
     </div>

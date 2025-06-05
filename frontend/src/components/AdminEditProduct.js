@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { CgClose } from "react-icons/cg";
 import productCategory from '../helpers/productCategory';
 import { FaCloudUploadAlt } from "react-icons/fa";
@@ -7,12 +7,16 @@ import DisplayImage from './DisplayImage';
 import { MdDelete } from "react-icons/md";
 import SummaryApi from '../common';
 import { toast } from 'react-toastify'
+import { IoClose } from "react-icons/io5";
+import { useSelector } from 'react-redux';
 
 const AdminEditProduct = ({
   onClose,
   productData,
-  fetchdata
+  fetchdata,
+  isSuperAdmin
 }) => {
+  const user = useSelector(state => state?.user?.user);
   const [data, setData] = useState({
     ...productData,
     productName: productData?.productName,
@@ -21,10 +25,19 @@ const AdminEditProduct = ({
     productImage: productData?.productImage || [],
     description: productData?.description,
     price: productData?.price,
-    sellingPrice: productData?.sellingPrice
+    sellingPrice: productData?.sellingPrice,
+    quantity: productData?.quantity
   })
   const [openFullScreenImage, setOpenFullScreenImage] = useState(false)
   const [fullScreenImage, setFullScreenImage] = useState("")
+
+  useEffect(() => {
+    // Vérifier si l'utilisateur a le droit de modifier ce produit
+    if (!isSuperAdmin && productData.userId !== user._id) {
+      toast.error("Vous n'avez pas la permission de modifier ce produit");
+      onClose();
+    }
+  }, [isSuperAdmin, productData.userId, user._id, onClose]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target
@@ -55,87 +68,137 @@ const AdminEditProduct = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const token = localStorage.getItem("token");
+    try {
+      const token = localStorage.getItem("token");
 
-    const response = await fetch(SummaryApi.updateProduct.url, {
-      method: SummaryApi.updateProduct.method,
-      credentials: 'include',
-      headers: {
-        "content-type": "application/json",
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify(data)
-    })
+      const response = await fetch(SummaryApi.updateProduct.url, {
+        method: SummaryApi.updateProduct.method,
+        credentials: 'include',
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          _id: productData._id,
+          ...data
+        })
+      })
 
-    const responseData = await response.json()
+      const responseData = await response.json()
 
-    if (responseData.success) {
-      toast.success(responseData?.message)
-      onClose()
-      fetchdata()
-    }
-
-    if (responseData.error) {
-      toast.error(responseData?.message)
+      if (responseData.success) {
+        toast.success(responseData?.message)
+        fetchdata()
+        onClose()
+      } else {
+        toast.error(responseData?.message || "Erreur lors de la mise à jour du produit")
+      }
+    } catch (error) {
+      toast.error("Erreur lors de la mise à jour du produit")
+      console.error(error)
     }
   }
 
   return (
-    <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4'>
-      <div className='bg-white rounded-xl w-full max-w-2xl max-h-[90vh] overflow-hidden'>
-        <div className='flex justify-between items-center p-4 bg-gray-50 border-b'>
-          <h2 className='text-xl font-semibold text-gray-800'>Modifier le produit</h2>
-          <button 
-            onClick={onClose}
-            className='p-2 hover:bg-gray-200 rounded-full transition-colors duration-200'
-          >
-            <CgClose className='text-2xl text-gray-600' />
-          </button>
+    <div className='fixed w-full h-full bg-slate-200 bg-opacity-35 top-0 left-0 right-0 bottom-0 flex items-center justify-center'>
+      <div className='bg-white p-4 rounded-lg w-full max-w-2xl'>
+        <div className='flex justify-between items-center pb-3'>
+          <h2 className='font-bold text-lg'>Modifier le produit</h2>
+          <div className='w-fit ml-auto text-2xl hover:text-red-600 cursor-pointer' onClick={onClose}>
+            <IoClose />
+          </div>
         </div>
 
-        <form className='p-6 space-y-4 overflow-y-auto max-h-[calc(90vh-80px)]' onSubmit={handleSubmit}>
-          <div className='space-y-2'>
-            <label htmlFor='productName' className='block text-sm font-medium text-gray-700'>Titre</label>
+        <form className='grid p-4 gap-3' onSubmit={handleSubmit}>
+          <div className='grid gap-2'>
+            <label htmlFor='productName'>Nom du produit</label>
             <input
               type='text'
               id='productName'
-              placeholder='Entrez le nom du produit'
               name='productName'
               value={data.productName}
               onChange={handleOnChange}
-              className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+              className='w-full p-2 border rounded-md'
               required
             />
           </div>
 
-          <div className='space-y-2'>
-            <label htmlFor='brandName' className='block text-sm font-medium text-gray-700'>Marque</label>
+          <div className='grid gap-2'>
+            <label htmlFor='brandName'>Marque</label>
             <input
               type='text'
               id='brandName'
-              placeholder='Entrez la marque'
-              value={data.brandName}
               name='brandName'
+              value={data.brandName}
               onChange={handleOnChange}
-              className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+              className='w-full p-2 border rounded-md'
               required
             />
           </div>
 
-          <div className='space-y-2'>
-            <label htmlFor='category' className='block text-sm font-medium text-gray-700'>Catégorie</label>
-            <select 
-              required 
-              value={data.category} 
-              name='category' 
-              onChange={handleOnChange} 
-              className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-            >
-              <option value="">Sélectionner</option>
-              {productCategory.map((el, index) => (
-                <option value={el.value} key={el.value + index}>{el.label}</option>
-              ))}
-            </select>
+          <div className='grid gap-2'>
+            <label htmlFor='category'>Catégorie</label>
+            <input
+              type='text'
+              id='category'
+              name='category'
+              value={data.category}
+              onChange={handleOnChange}
+              className='w-full p-2 border rounded-md'
+              required
+            />
+          </div>
+
+          <div className='grid gap-2'>
+            <label htmlFor='price'>Prix</label>
+            <input
+              type='number'
+              id='price'
+              name='price'
+              value={data.price}
+              onChange={handleOnChange}
+              className='w-full p-2 border rounded-md'
+              required
+            />
+          </div>
+
+          <div className='grid gap-2'>
+            <label htmlFor='sellingPrice'>Prix de vente</label>
+            <input
+              type='number'
+              id='sellingPrice'
+              name='sellingPrice'
+              value={data.sellingPrice}
+              onChange={handleOnChange}
+              className='w-full p-2 border rounded-md'
+              required
+            />
+          </div>
+
+          <div className='grid gap-2'>
+            <label htmlFor='quantity'>Quantité</label>
+            <input
+              type='number'
+              id='quantity'
+              name='quantity'
+              value={data.quantity}
+              onChange={handleOnChange}
+              className='w-full p-2 border rounded-md'
+              required
+            />
+          </div>
+
+          <div className='grid gap-2'>
+            <label htmlFor='description'>Description</label>
+            <textarea
+              id='description'
+              name='description'
+              value={data.description}
+              onChange={handleOnChange}
+              className='w-full p-2 border rounded-md'
+              rows={4}
+              required
+            />
           </div>
 
           <div className='space-y-2'>
@@ -178,62 +241,19 @@ const AdminEditProduct = ({
             )}
           </div>
 
-          <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
-            <div className='space-y-2'>
-              <label htmlFor='price' className='block text-sm font-medium text-gray-700'>Ancien prix</label>
-              <input
-                type='number'
-                id='price'
-                placeholder='Entrez le prix'
-                value={data.price}
-                name='price'
-                onChange={handleOnChange}
-                className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-                required
-              />
-            </div>
-
-            <div className='space-y-2'>
-              <label htmlFor='sellingPrice' className='block text-sm font-medium text-gray-700'>Nouveau prix</label>
-              <input
-                type='number'
-                id='sellingPrice'
-                placeholder='Entrez le prix de vente'
-                value={data.sellingPrice}
-                name='sellingPrice'
-                onChange={handleOnChange}
-                className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-                required
-              />
-            </div>
-          </div>
-
-          <div className='space-y-2'>
-            <label htmlFor='description' className='block text-sm font-medium text-gray-700'>Description</label>
-            <textarea
-              id='description'
-              className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none'
-              placeholder='Entrez la description du produit'
-              rows={4}
-              onChange={handleOnChange}
-              name='description'
-              value={data.description}
-            />
-          </div>
-
-          <div className='flex justify-end gap-4 pt-4'>
+          <div className='flex justify-end gap-3 mt-4'>
             <button
               type='button'
               onClick={onClose}
-              className='px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors duration-200'
+              className='px-4 py-2 border rounded-md hover:bg-gray-100'
             >
               Annuler
             </button>
             <button
               type='submit'
-              className='px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200'
+              className='px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700'
             >
-              Sauvegarder
+              Mettre à jour
             </button>
           </div>
         </form>

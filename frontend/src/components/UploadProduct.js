@@ -7,8 +7,10 @@ import DisplayImage from './DisplayImage';
 import { MdDelete } from "react-icons/md";
 import SummaryApi from '../common';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 const UploadProduct = ({ onClose, fetchData }) => {
+  const user = useSelector(state => state?.user?.user);
   const [data, setData] = useState({
     productName: "",
     brandName: "",
@@ -17,7 +19,8 @@ const UploadProduct = ({ onClose, fetchData }) => {
     description: "",
     price: "",
     sellingPrice: "",
-    userId: ""
+    userId: "",
+    status: "active"
   });
 
   const [openFullScreenImage, setOpenFullScreenImage] = useState(false);
@@ -66,6 +69,11 @@ const UploadProduct = ({ onClose, fetchData }) => {
 
     if (!token) {
       toast.error("Erreur d'authentification, veuillez vous reconnecter.");
+      return;
+    }
+
+    if (Number(data.sellingPrice) >= Number(data.price)) {
+      toast.error("Le prix de vente doit être inférieur au prix original");
       return;
     }
 
@@ -205,6 +213,7 @@ const UploadProduct = ({ onClose, fetchData }) => {
                 onChange={handleOnChange}
                 className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
                 required
+                min="0"
               />
             </div>
 
@@ -219,9 +228,27 @@ const UploadProduct = ({ onClose, fetchData }) => {
                 onChange={handleOnChange}
                 className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
                 required
+                min="0"
               />
             </div>
           </div>
+
+          {user?.role === 'SUPERADMIN' && (
+            <div className='space-y-2'>
+              <label htmlFor='status' className='block text-sm font-medium text-gray-700'>Statut du produit</label>
+              <select
+                id='status'
+                name='status'
+                value={data.status}
+                onChange={handleOnChange}
+                className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+              >
+                <option value="active">Actif</option>
+                <option value="inactive">Inactif</option>
+                <option value="featured">En vedette</option>
+              </select>
+            </div>
+          )}
 
           <div className='space-y-2'>
             <label htmlFor='description' className='block text-sm font-medium text-gray-700'>Description</label>
@@ -233,6 +260,7 @@ const UploadProduct = ({ onClose, fetchData }) => {
               onChange={handleOnChange}
               name='description'
               value={data.description}
+              required
             />
           </div>
 

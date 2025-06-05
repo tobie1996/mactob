@@ -11,24 +11,30 @@ async function userSignUpController(req, res) {
         console.log("user", user)
 
         if (user) {
-            throw new Error("Already user exits.")
+            throw new Error("Cet utilisateur existe déjà.")
         }
 
         if (!email) {
-            throw new Error("Please provide email")
+            throw new Error("Veuillez fournir un email")
         }
         if (!password) {
-            throw new Error("Please provide password")
+            throw new Error("Veuillez fournir un mot de passe")
         }
         if (!name) {
-            throw new Error("Please provide name")
+            throw new Error("Veuillez fournir un nom")
+        }
+
+        // Vérifier si le rôle est valide
+        const validRoles = ['GENERAL', 'ADMIN', 'SUPERADMIN']
+        if (role && !validRoles.includes(role)) {
+            throw new Error("Rôle invalide")
         }
 
         const salt = bcrypt.genSaltSync(10);
         const hashPassword = await bcrypt.hashSync(password, salt);
 
         if (!hashPassword) {
-            throw new Error("Something is wrong")
+            throw new Error("Une erreur est survenue")
         }
 
         const payload = {

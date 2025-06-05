@@ -27,21 +27,21 @@ const AllProducts = () => {
       const dataResponse = await response.json();
 
       if (response.ok) {
-        // Si l'utilisateur est SUPERADMIN, afficher tous les produits
         if (user?.role === 'SUPERADMIN') {
+          // SUPERADMIN voit tous les produits
           setAllProduct(dataResponse.data || []);
-        } else {
-          // Sinon, filtrer par userId
+        } else if (user?.role === 'ADMIN') {
+          // ADMIN ne voit que ses propres produits
           const filteredProducts = dataResponse.data.filter(product => product.userId === userId);
           setAllProduct(filteredProducts || []);
         }
       } else {
-        toast.error(dataResponse.message || "Failed to fetch products");
+        toast.error(dataResponse.message || "Erreur lors de la récupération des produits");
       }
 
     } catch (error) {
-      console.error("Failed to fetch products:", error);
-      toast.error("Failed to fetch products");
+      console.error("Erreur lors de la récupération des produits:", error);
+      toast.error("Erreur lors de la récupération des produits");
     }
   };
 
@@ -52,7 +52,14 @@ const AllProducts = () => {
   return (
     <div className='space-y-6'>
       <div className='flex justify-between items-center'>
-        <h2 className='text-2xl font-bold text-gray-800'>Gestion des Produits</h2>
+        <div>
+          <h2 className='text-2xl font-bold text-gray-800'>Gestion des Produits</h2>
+          <p className='text-sm text-gray-600 mt-1'>
+            {user?.role === 'SUPERADMIN' 
+              ? 'Vue complète de tous les produits' 
+              : 'Vue de vos produits uniquement'}
+          </p>
+        </div>
         <button
           className='flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-md'
           onClick={() => setOpenUploadProduct(true)}>
@@ -66,7 +73,8 @@ const AllProducts = () => {
           <AdminProductCard 
             data={product} 
             key={index + "allProduct"} 
-            fetchdata={fetchAllProduct} 
+            fetchdata={fetchAllProduct}
+            isSuperAdmin={user?.role === 'SUPERADMIN'}
           />
         ))}
       </div>

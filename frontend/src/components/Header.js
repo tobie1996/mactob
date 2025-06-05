@@ -151,7 +151,7 @@ const Header = () => {
                         <div className="px-4 py-2 text-sm text-gray-700 border-b">
                           <p className="font-medium">Bonjour, {user?.name}</p>
                         </div>
-                        {user?.role === ROLE.ADMIN || user?.role === 'SUPERADMIN' && (
+                        {(user?.role === ROLE.ADMIN || user?.role === 'SUPERADMIN') && (
                           <Link 
                             to="/admin-panel/all-products" 
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-300"
@@ -286,7 +286,7 @@ const Header = () => {
                   )}
                 </Link>
                 
-                {user?.role === ROLE.ADMIN || user?.role === 'SUPERADMIN' && (
+                {(user?.role === ROLE.ADMIN || user?.role === 'SUPERADMIN') && (
                   <Link 
                     to="/admin-panel/all-products" 
                     className="text-white hover:text-orange-500 transition-colors duration-300"
