@@ -86,8 +86,8 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <span className="text-2xl font-bold">
-              <span className="text-white">Mac</span>
-              <span className="text-orange-500">Tob</span>
+              <span className="text-white">Dimi</span>
+              <span className="text-orange-500">Business</span>
             </span>
           </Link>
 
