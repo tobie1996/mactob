@@ -141,7 +141,7 @@ const Footer = () => {
         {/* Copyright et Mentions légales */}
         <div className="border-t border-gray-800 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center">
           <div className="text-gray-400 text-sm mb-4 md:mb-0">
-            &copy; {currentYear} <span className="text-white">Mac</span><span className="text-orange-500">Tob</span>. Tous droits réservés.
+            &copy; {currentYear} <span className="text-white">Dimi</span><span className="text-orange-500">Business</span>. Tous droits réservés.
           </div>
           <div className="flex space-x-4">
             <Link to="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">Confidentialité</Link>
