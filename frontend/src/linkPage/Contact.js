@@ -14,8 +14,8 @@ const ContactPage = () => {
     {
       icon: <FaEnvelope className="text-3xl" />,
       title: 'Email',
-      content: 'Envoyez-nous un email à tobiemba@gmail.com',
-      Link: 'mailto:tobiemba@gmail.com',
+      content: 'Envoyez-nous un email à Pekadimitri@icloud.com',
+      Link: 'mailto:Pekadimitri@icloud.com',
       color: 'bg-green-100 text-green-600'
     },
     {
