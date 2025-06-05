@@ -4,10 +4,12 @@ import SummaryApi from '../common';
 import AdminProductCard from '../components/AdminProductCard';
 import { toast } from 'react-toastify';
 import { FaPlus } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 
 const AllProducts = () => {
   const [openUploadProduct, setOpenUploadProduct] = useState(false);
   const [allProduct, setAllProduct] = useState([]);
+  const user = useSelector(state => state?.user?.user);
 
   const fetchAllProduct = async () => {
     const token = localStorage.getItem("token");
@@ -25,8 +27,14 @@ const AllProducts = () => {
       const dataResponse = await response.json();
 
       if (response.ok) {
-        const filteredProducts = dataResponse.data.filter(product => product.userId === userId);
-        setAllProduct(filteredProducts || []);
+        // Si l'utilisateur est SUPERADMIN, afficher tous les produits
+        if (user?.role === 'SUPERADMIN') {
+          setAllProduct(dataResponse.data || []);
+        } else {
+          // Sinon, filtrer par userId
+          const filteredProducts = dataResponse.data.filter(product => product.userId === userId);
+          setAllProduct(filteredProducts || []);
+        }
       } else {
         toast.error(dataResponse.message || "Failed to fetch products");
       }
@@ -39,7 +47,7 @@ const AllProducts = () => {
 
   useEffect(() => {
     fetchAllProduct();
-  }, []);
+  }, [user?.role]);
 
   return (
     <div className='space-y-6'>

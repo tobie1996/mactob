@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 
 async function userSignUpController(req, res) {
     try {
-        const { email, password, name } = req.body
+        const { email, password, name, role } = req.body
 
         const user = await userModel.findOne({ email })
 
@@ -33,7 +33,7 @@ async function userSignUpController(req, res) {
 
         const payload = {
             ...req.body,
-            role: "GENERAL",
+            role: role || "GENERAL",
             password: hashPassword
         }
 
